@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodiak", "Kodiak.csproj", "{EF5D70FF-B8A6-4DB3-9CA7-8DE500582577}"
 EndProject
 Global
