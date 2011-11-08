@@ -81,9 +81,7 @@ namespace Transformations.Classes
                 ITransformation transformation = Transformations.Pop();
 
                 transformation.Apply(matrix);
-            }
-
-            matrix.ApplyTranslation();
+            }            
         }
 
         public void ClearTransformations()

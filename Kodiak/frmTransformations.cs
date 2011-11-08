@@ -19,9 +19,12 @@ namespace Transformations
 
         private void frmTransformations_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Hide();
+            if (e.CloseReason == CloseReason.MdiFormClosing)
+            {
+                this.Hide();
 
-            e.Cancel = true;
+                e.Cancel = true;
+            }
         }
     }
 }

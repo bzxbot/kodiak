@@ -18,7 +18,11 @@ namespace Transformations.Classes
 
         public void Apply(Matrix matrix)
         {
-            matrix.Shear(dx, dy);
+            float[,] shearMatrix = new float[,] { {  1, dx, 0 }, 
+                                                { dy,  1, 0 }, 
+                                                {  0,  0, 1 } };
+
+            matrix.Multiply(shearMatrix);
         }
     }
 }
