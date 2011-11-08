@@ -28,36 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lboTransformations = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lboTransformations
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(136, 303);
-            this.listBox1.TabIndex = 0;
+            this.lboTransformations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lboTransformations.FormattingEnabled = true;
+            this.lboTransformations.Location = new System.Drawing.Point(0, 0);
+            this.lboTransformations.Name = "lboTransformations";
+            this.lboTransformations.Size = new System.Drawing.Size(136, 303);
+            this.lboTransformations.TabIndex = 0;
             // 
             // frmTransformations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(136, 303);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lboTransformations);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmTransformations";
             this.ShowIcon = false;
             this.Text = "Transformações";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTransformations_FormClosing);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lboTransformations;
     }
 }

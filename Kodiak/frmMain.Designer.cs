@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.abrirImagemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adicionarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.traToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.escalaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rotaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.executarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniTranslate = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniScale = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniRotate = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniInvert = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniShear = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniExecute = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniExit = new System.Windows.Forms.ToolStripMenuItem();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -46,96 +46,99 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abrirImagemToolStripMenuItem,
-            this.adicionarToolStripMenuItem,
-            this.removerToolStripMenuItem,
-            this.executarToolStripMenuItem,
-            this.sairToolStripMenuItem});
+            this.mniOpen,
+            this.mniAdd,
+            this.mniRemove,
+            this.mniExecute,
+            this.mniExit});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(592, 24);
             this.menuStrip.TabIndex = 1;
             // 
-            // abrirImagemToolStripMenuItem
+            // mniOpen
             // 
-            this.abrirImagemToolStripMenuItem.Name = "abrirImagemToolStripMenuItem";
-            this.abrirImagemToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.B)));
-            this.abrirImagemToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.abrirImagemToolStripMenuItem.Text = "A&brir";
-            this.abrirImagemToolStripMenuItem.Click += new System.EventHandler(this.abrirImagemToolStripMenuItem_Click);
+            this.mniOpen.Name = "mniOpen";
+            this.mniOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.B)));
+            this.mniOpen.Size = new System.Drawing.Size(45, 20);
+            this.mniOpen.Text = "A&brir";
+            this.mniOpen.Click += new System.EventHandler(this.mniOpen_Click);
             // 
-            // adicionarToolStripMenuItem
+            // mniAdd
             // 
-            this.adicionarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.traToolStripMenuItem,
-            this.escalaToolStripMenuItem,
-            this.rotaçãoToolStripMenuItem,
-            this.inverToolStripMenuItem,
-            this.sToolStripMenuItem});
-            this.adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            this.adicionarToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.adicionarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
-            this.adicionarToolStripMenuItem.Text = "&Adicionar";
+            this.mniAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mniTranslate,
+            this.mniScale,
+            this.mniRotate,
+            this.mniInvert,
+            this.mniShear});
+            this.mniAdd.Enabled = false;
+            this.mniAdd.Name = "mniAdd";
+            this.mniAdd.ShortcutKeyDisplayString = "";
+            this.mniAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
+            this.mniAdd.Size = new System.Drawing.Size(70, 20);
+            this.mniAdd.Text = "&Adicionar";
             // 
-            // traToolStripMenuItem
+            // mniTranslate
             // 
-            this.traToolStripMenuItem.Name = "traToolStripMenuItem";
-            this.traToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.traToolStripMenuItem.Text = "Translação";
-            this.traToolStripMenuItem.Click += new System.EventHandler(this.traToolStripMenuItem_Click);
+            this.mniTranslate.Name = "mniTranslate";
+            this.mniTranslate.Size = new System.Drawing.Size(152, 22);
+            this.mniTranslate.Text = "Translação";
+            this.mniTranslate.Click += new System.EventHandler(this.mniTranslate_Click);
             // 
-            // escalaToolStripMenuItem
+            // mniScale
             // 
-            this.escalaToolStripMenuItem.Name = "escalaToolStripMenuItem";
-            this.escalaToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.escalaToolStripMenuItem.Text = "Escala";
-            this.escalaToolStripMenuItem.Click += new System.EventHandler(this.escalaToolStripMenuItem_Click);
+            this.mniScale.Name = "mniScale";
+            this.mniScale.Size = new System.Drawing.Size(152, 22);
+            this.mniScale.Text = "Escala";
+            this.mniScale.Click += new System.EventHandler(this.mniScale_Click);
             // 
-            // rotaçãoToolStripMenuItem
+            // mniRotate
             // 
-            this.rotaçãoToolStripMenuItem.Name = "rotaçãoToolStripMenuItem";
-            this.rotaçãoToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.rotaçãoToolStripMenuItem.Text = "Rotação";
-            this.rotaçãoToolStripMenuItem.Click += new System.EventHandler(this.rotaçãoToolStripMenuItem_Click);
+            this.mniRotate.Name = "mniRotate";
+            this.mniRotate.Size = new System.Drawing.Size(152, 22);
+            this.mniRotate.Text = "Rotação";
+            this.mniRotate.Click += new System.EventHandler(this.mniRotate_Click);
             // 
-            // inverToolStripMenuItem
+            // mniInvert
             // 
-            this.inverToolStripMenuItem.Name = "inverToolStripMenuItem";
-            this.inverToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.inverToolStripMenuItem.Text = "Inverter";
-            this.inverToolStripMenuItem.Click += new System.EventHandler(this.inverToolStripMenuItem_Click);
+            this.mniInvert.Name = "mniInvert";
+            this.mniInvert.Size = new System.Drawing.Size(152, 22);
+            this.mniInvert.Text = "Inverter";
+            this.mniInvert.Click += new System.EventHandler(this.mniInvert_Click);
             // 
-            // sToolStripMenuItem
+            // mniShear
             // 
-            this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.sToolStripMenuItem.Text = "Shear";
-            this.sToolStripMenuItem.Click += new System.EventHandler(this.sToolStripMenuItem_Click);
+            this.mniShear.Name = "mniShear";
+            this.mniShear.Size = new System.Drawing.Size(152, 22);
+            this.mniShear.Text = "Shear";
+            this.mniShear.Click += new System.EventHandler(this.mniShear_Click);
             // 
-            // removerToolStripMenuItem
+            // mniRemove
             // 
-            this.removerToolStripMenuItem.Name = "removerToolStripMenuItem";
-            this.removerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
-            this.removerToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
-            this.removerToolStripMenuItem.Text = "&Remover";
-            this.removerToolStripMenuItem.Click += new System.EventHandler(this.removerToolStripMenuItem_Click);
+            this.mniRemove.Enabled = false;
+            this.mniRemove.Name = "mniRemove";
+            this.mniRemove.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
+            this.mniRemove.Size = new System.Drawing.Size(66, 20);
+            this.mniRemove.Text = "&Remover";
+            this.mniRemove.Click += new System.EventHandler(this.mniRemove_Click);
             // 
-            // executarToolStripMenuItem
+            // mniExecute
             // 
-            this.executarToolStripMenuItem.Name = "executarToolStripMenuItem";
-            this.executarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
-            this.executarToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.executarToolStripMenuItem.Text = "&Executar";
-            this.executarToolStripMenuItem.Click += new System.EventHandler(this.executarToolStripMenuItem_Click);
+            this.mniExecute.Enabled = false;
+            this.mniExecute.Name = "mniExecute";
+            this.mniExecute.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
+            this.mniExecute.Size = new System.Drawing.Size(63, 20);
+            this.mniExecute.Text = "&Executar";
+            this.mniExecute.Click += new System.EventHandler(this.mniExecute_Click);
             // 
-            // sairToolStripMenuItem
+            // mniExit
             // 
-            this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Space)));
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.sairToolStripMenuItem.Text = "&Sair";
-            this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
+            this.mniExit.Name = "mniExit";
+            this.mniExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Space)));
+            this.mniExit.Size = new System.Drawing.Size(38, 20);
+            this.mniExit.Text = "&Sair";
+            this.mniExit.Click += new System.EventHandler(this.mniExit_Click);
             // 
             // frmMain
             // 
@@ -161,16 +164,16 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem adicionarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem executarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem escalaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rotaçãoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abrirImagemToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inverToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mniAdd;
+        private System.Windows.Forms.ToolStripMenuItem mniRemove;
+        private System.Windows.Forms.ToolStripMenuItem mniExit;
+        private System.Windows.Forms.ToolStripMenuItem mniExecute;
+        private System.Windows.Forms.ToolStripMenuItem mniScale;
+        private System.Windows.Forms.ToolStripMenuItem mniRotate;
+        private System.Windows.Forms.ToolStripMenuItem mniOpen;
+        private System.Windows.Forms.ToolStripMenuItem mniInvert;
         private System.Windows.Forms.OpenFileDialog ofd;
-        private System.Windows.Forms.ToolStripMenuItem traToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mniTranslate;
+        private System.Windows.Forms.ToolStripMenuItem mniShear;
     }
 }

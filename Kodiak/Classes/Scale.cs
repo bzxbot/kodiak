@@ -13,7 +13,11 @@
 
         public void Apply(Matrix matrix)
         {
-            matrix.Scale(ScaleX, ScaleY);
+            float[,] scaleMatrix = new float[,] { { ScaleX,   0,    0 }, 
+                                                {   0,      ScaleY, 0 }, 
+                                                {   0,        0,    1 }};
+
+            matrix.Multiply(scaleMatrix);
         }
     }
 }

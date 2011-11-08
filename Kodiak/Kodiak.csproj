@@ -75,8 +75,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Enum.cs" />
+    <Compile Include="Classes\Trig.cs" />
+    <Compile Include="Classes\Inversion.cs" />
     <Compile Include="Classes\Pixel.cs" />
+    <Compile Include="Classes\IObserver.cs" />
     <Compile Include="frmShear.cs">
       <SubType>Form</SubType>
     </Compile>

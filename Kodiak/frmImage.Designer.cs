@@ -68,6 +68,8 @@
             this.Name = "frmImage";
             this.ShowIcon = false;
             this.Text = "Imagem";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmImage_FormClosed);
+            this.Load += new System.EventHandler(this.frmImage_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

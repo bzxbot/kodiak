@@ -20,35 +20,6 @@ namespace Transformations.Classes
                                          { 0, 0, 1 } };
         }
 
-        public void Scale(float scaleX, float scaleY)
-        {
-            float[,] matrix = new float[,] { { scaleX, 0, 0 }, 
-                                             { 0, scaleY, 0 }, 
-                                             { 0,   0,    1 }};
-
-            Multiply(matrix);
-        }
-
-        public void Rotate(int angle)
-        {
-            float[,] matrix;
-
-            if (angle > 0)
-            {
-                matrix = new float[,] { {(float)Math.Cos(DegreeToRadian(angle)) ,  (float)Math.Sin(DegreeToRadian(angle)), 0},
-                                        {-(float)Math.Sin(DegreeToRadian(angle)),  (float)Math.Cos(DegreeToRadian(angle)), 0},
-                                        {                 0                     ,                    0                   , 1} };
-            }
-            else
-            {
-                matrix = new float[,] { {(float)Math.Cos(DegreeToRadian(angle)), (float)Math.Sin(DegreeToRadian(angle)), 0},
-                                        {(float)Math.Sin(DegreeToRadian(angle)), (float)Math.Cos(DegreeToRadian(angle)), 0},
-                                        {                 0                    ,                  0                    , 1} };
-            }
-
-            Multiply(matrix);
-        }
-
         public void Invert(Inversion invert)
         {
             float[,] matrix;
@@ -77,8 +48,10 @@ namespace Transformations.Classes
 
         public void Translate(int dx, int dy)
         {
-            translation[2, 0] += dx;
-            translation[2, 1] += dy;
+            //translation[2, 0] += dx;
+            //translation[2, 1] += dy;
+            Elements[2, 0] += dx;
+            Elements[2, 1] += dy;
         }
 
         public void Shear(float dx, float dy)
@@ -95,7 +68,7 @@ namespace Transformations.Classes
             Multiply(translation);
         }
 
-        private void Multiply(float[,] matrix)
+        public void Multiply(float[,] matrix)
         {
             float[,] result = new float[side, side];
 
@@ -111,11 +84,6 @@ namespace Transformations.Classes
             }
 
             Elements = result;
-        }
-
-        private double DegreeToRadian(int angle)
-        {
-            return Math.PI * angle / 180.0;
-        }
+        }        
     }
 }

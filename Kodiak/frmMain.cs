@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+
 using Greyhound;
 using Transformations.Classes;
-using System.IO;
 
 namespace Transformations
 {
-    public partial class frmMain : Form
+    public partial class frmMain : Form, IObserver
     {
         private PNMReader pnmReader = new PNMReader();
+        private frmImage frmImage;
         private frmScale frmScale = new frmScale();
         private frmRotate frmRotate = new frmRotate();
         private frmInvert frmInvert = new frmInvert();
-        private frmImage frmImage = new frmImage();
         private frmShear frmShear = new frmShear();
         private frmTranslate frmTranslation = new frmTranslate();
         private frmTransformations frmTransformations = new frmTransformations();
@@ -34,110 +35,107 @@ namespace Transformations
                     (control as MdiClient).ForeColor = System.Drawing.SystemColors.Control;
                 }
             }
-
-            frmImage.MdiParent = this;
+            
             frmTransformations.MdiParent = this;
-            frmTransformations.Show();
-            frmTransformations.Location = new Point(this.Width - 165, 5);
+            
+            ShowTransformationsPanel();
         }
 
-        private void abrirImagemToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mniOpen_Click(object sender, EventArgs e)
         {
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                if (!string.IsNullOrEmpty(ofd.FileName))
-                {
-                    FileInfo fInfo = new FileInfo(ofd.FileName);
-
-                    string fileExtension = fInfo.Extension.ToLower();
-
-                    if (fileExtension == ".pbm" || fileExtension == ".pgm" || fileExtension == ".ppm")
-                    {
-                        frmImage.Image = (Bitmap)new PNMReader().ReadImage(fInfo.FullName);
-                    }
-                    else
-                    {
-                        frmImage.Image = (Bitmap)Image.FromFile(ofd.FileName);
-                    }
-
-                    frmImage.Show();
-                }
-            }
-        }
-
-        private void traToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (frmImage.Image == null)
-            {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            if (ofd.ShowDialog() != DialogResult.OK)
                 return;
+
+            if (string.IsNullOrEmpty(ofd.FileName))
+                return;
+
+            FileInfo fInfo = new FileInfo(ofd.FileName);
+
+            string fileExtension = fInfo.Extension.ToLower();
+
+            if (frmImage != null)
+            {
+                frmImage.Close();
+                frmImage.Dispose();
+                frmImage = null;
             }
 
+            frmImage = new frmImage();
+            frmImage.MdiParent = this;
+            frmImage.RegisterObserver(this);
+
+            Cursor = Cursors.WaitCursor;
+
+            if (fileExtension == ".pbm" || fileExtension == ".pgm" || fileExtension == ".ppm")
+            {
+                frmImage.Image = (Bitmap)(new PNMReader().ReadImage(fInfo.FullName));
+            }
+            else
+            {
+                frmImage.Image = (Bitmap)(Image.FromFile(ofd.FileName));
+            }
+
+            Cursor = Cursors.Arrow;
+
+            mniAdd.Enabled = true;
+            mniRemove.Enabled = true;
+            mniExecute.Enabled = true;
+
+            frmImage.Show();
+        }
+
+        private void mniTranslate_Click(object sender, EventArgs e)
+        {
             if (frmTranslation.ShowDialog() == DialogResult.OK)
             {
                 transformer.Transformations.Push(new Translate(frmTranslation.TranslationX, frmTranslation.TranslationY));
                 frmTransformations.Transformations.Items.Insert(0, "Translação");
+                ShowTransformationsPanel();
             }
         }
 
-        private void escalaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (frmImage.Image == null)
-            {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                return;
-            }
-
+        private void mniScale_Click(object sender, EventArgs e)
+        {            
             if (frmScale.ShowDialog() == DialogResult.OK)
             {
                 transformer.Transformations.Push(new Scale(frmScale.ScaleX, frmScale.ScaleY));
                 frmTransformations.Transformations.Items.Insert(0, "Escala");
+                ShowTransformationsPanel();
             }
         }
 
-        private void rotaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mniRotate_Click(object sender, EventArgs e)
         {
-            if (frmImage.Image == null)
-            {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                return;
-            }
-
             if (frmRotate.ShowDialog() == DialogResult.OK)
             {
                 transformer.Transformations.Push(new Rotate(frmRotate.Angle));
                 frmTransformations.Transformations.Items.Insert(0, "Rotação");
+                ShowTransformationsPanel();
             }
         }
 
-        private void inverToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (frmImage.Image == null)
-            {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                return;
-            }
-
+        private void mniInvert_Click(object sender, EventArgs e)
+        {           
             if (frmInvert.ShowDialog() == DialogResult.OK)
             {
                 transformer.Transformations.Push(new Invert(frmInvert.Invertion));
                 frmTransformations.Transformations.Items.Insert(0, "Inversão");
+                ShowTransformationsPanel();
             }
         }
 
-        private void removerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mniShear_Click(object sender, EventArgs e)
         {
-            if (frmImage.Image == null)
+            if (frmShear.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                return;
+                transformer.Transformations.Push(new Shear(frmShear.ShearX, frmShear.ShearY));
+                frmTransformations.Transformations.Items.Insert(0, "Shear");
+                ShowTransformationsPanel();
             }
+        }
 
+        private void mniRemove_Click(object sender, EventArgs e)
+        {          
             if (transformer.Transformations.Count > 0)
             {
                 ITransformation t = transformer.Transformations.Pop();
@@ -153,49 +151,43 @@ namespace Transformations
             }
         }
 
-        private void executarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mniExecute_Click(object sender, EventArgs e)
         {
-            if (frmImage.Image == null)
-            {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                return;
-            }
-
-            if (transformer.Transformations.Count == 0)
-            {
-                MessageBox.Show("Nenhuma transformação na pilha.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                return;
-            }
-
             Cursor = Cursors.WaitCursor;
 
-            frmImage.Image = transformer.ApplyTransformation((Bitmap)frmImage.Image, frmImage.picbox);
+            frmImage.Image = transformer.ApplyTransformations((Bitmap)frmImage.Image, frmImage.PictureBox);
 
             frmTransformations.Transformations.Items.Clear();
 
             Cursor = Cursors.Arrow;
         }
 
-        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mniExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void sToolStripMenuItem_Click(object sender, EventArgs e)
+        public void Notify(object obj)
         {
-            if (frmImage.Image == null)
+            if (obj is frmImage)
             {
-                MessageBox.Show("Nenhuma imagem carregada.", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                transformer.ClearTransformations();
 
-                return;
+                frmTransformations.Transformations.Items.Clear();
+
+                mniAdd.Enabled = false;
+                mniRemove.Enabled = false;
+                mniExecute.Enabled = false;
             }
+        }
 
-            if (frmShear.ShowDialog() == DialogResult.OK)
+        private void ShowTransformationsPanel()
+        {
+            if (!frmTransformations.Visible)
             {
-                transformer.Transformations.Push(new Shear(frmShear.ShearX, frmShear.ShearY));
-                frmTransformations.Transformations.Items.Insert(0, "Shear");
+                frmTransformations.StartPosition = FormStartPosition.Manual;
+                frmTransformations.Location = new Point(this.Width - 165, 5);
+                frmTransformations.Show();
             }
         }
     }

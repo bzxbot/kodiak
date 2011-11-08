@@ -1,4 +1,5 @@
-﻿namespace Transformations.Classes
+﻿using System;
+namespace Transformations.Classes
 {
     class Rotate : ITransformation
     {
@@ -11,7 +12,22 @@
 
         public void Apply(Matrix matrix)
         {
-            matrix.Rotate(Angle);
+            float[,] rotateMatrix;
+
+            if (Angle > 0)
+            {
+                rotateMatrix = new float[,] { {(float)Math.Cos(Trig.DegreeToRadian(Angle)) ,  (float)Math.Sin(Trig.DegreeToRadian(Angle)), 0},
+                                        { -(float)Math.Sin(Trig.DegreeToRadian(Angle)),  (float)Math.Cos(Trig.DegreeToRadian(Angle)), 0},
+                                        {                 0                     ,                    0                   , 1} };
+            }
+            else
+            {
+                rotateMatrix = new float[,] { {(float)Math.Cos(Trig.DegreeToRadian(Angle)), (float)Math.Sin(Trig.DegreeToRadian(Angle)), 0},
+                                        {(float)Math.Sin(Trig.DegreeToRadian(Angle)), (float)Math.Cos(Trig.DegreeToRadian(Angle)), 0},
+                                        {                 0                    ,                  0                    , 1} };
+            }
+
+            matrix.Multiply(rotateMatrix);
         }
     }
 }

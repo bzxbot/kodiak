@@ -7,6 +7,7 @@ namespace Transformations.Classes
     class Transformer
     {
         private Stack<ITransformation> transformations = new Stack<ITransformation>();
+
         public Stack<ITransformation> Transformations
         {
             get
@@ -21,11 +22,12 @@ namespace Transformations.Classes
 
         private Matrix matrix = new Matrix();
 
-        public Bitmap ApplyTransformation(Bitmap bitmap, PictureBox picbox)
+        public Bitmap ApplyTransformations(Bitmap bitmap, PictureBox pictureBox)
         {
-            ComputeMatrix();
+            int maximumX = 0;
+            int maximumY = 0;
 
-            Bitmap transformed = new Bitmap(picbox.Width, picbox.Height);
+            ComputeMatrix();
 
             List<Pixel> pixels = new List<Pixel>();
 
@@ -35,18 +37,29 @@ namespace Transformations.Classes
                 {
                     Color color = bitmap.GetPixel(i, j);
 
-                    int xcentralizado = i - bitmap.Width / 2;
-                    int ycentralizado = j - bitmap.Height / 2;
+                    // Each point is centered on 0,0
+                    int centralX = i - bitmap.Width / 2;
+                    int centralY = j - bitmap.Height / 2;
 
-                    int x = (int)(matrix.Elements[0, 0] * xcentralizado + matrix.Elements[1, 0] * ycentralizado + matrix.Elements[2, 0] * 1);
-                    int y = (int)(matrix.Elements[0, 1] * xcentralizado + matrix.Elements[1, 1] * ycentralizado + matrix.Elements[2, 1] * 1);
+                    int x = (int)(matrix.Elements[0, 0] * centralX + matrix.Elements[1, 0] * centralY + matrix.Elements[2, 0] * 1);
+                    int y = (int)(matrix.Elements[0, 1] * centralX + matrix.Elements[1, 1] * centralY + matrix.Elements[2, 1] * 1);
 
-                    x += picbox.Width / 2;
-                    y += picbox.Height / 2;
+                    // Point back to format where 0,0 is the top right corner.
+                    x += pictureBox.Width / 2;
+                    y += pictureBox.Height / 2;
 
-                    pixels.Add(new Pixel(x, y, color));       
+                    // On some transformations the image width and height might change, we store the maximum of them.
+                    if (x > maximumX)
+                        maximumX = x;
+
+                    if (y > maximumY)
+                        maximumY = y;
+
+                    pixels.Add(new Pixel(x, y, color));
                 }
             }
+
+            Bitmap transformed = new Bitmap(maximumX, maximumY);
 
             foreach(Pixel pixel in pixels)
             {
@@ -56,7 +69,7 @@ namespace Transformations.Classes
                 }
             }
 
-            Clear();
+            ClearTransformations();
 
             return transformed;
         }
@@ -73,7 +86,7 @@ namespace Transformations.Classes
             matrix.ApplyTranslation();
         }
 
-        public void Clear()
+        public void ClearTransformations()
         {
             matrix = new Matrix();
         }
